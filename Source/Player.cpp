@@ -32,13 +32,13 @@ void Player::Update() {
 		position.x += max(distance, distance2);
 	}
 
-	const float G = 3.0f; // 重力
+	const float G = 3.0f/60.0f; // 重力
 	if (Input::IsKeyOnTrig(KEY_INPUT_SPACE)) {
-		velocity.y = -10.0f;
+		velocity.y = -sqrtf(2*G*64*3);
 	}
 
 	position.y += velocity.y;
-	velocity.y += G / 60.0f; // 1フレームの重力加速度
+	velocity.y += G; // 1フレームの重力加速度
 	int downDistance = field->HitWallDown(position.x + 16, position.y + 63);
 	int downDistance2 = field->HitWallDown(position.x + 44, position.y + 63);
 	int distance = max(downDistance, downDistance2);
