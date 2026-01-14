@@ -9,4 +9,7 @@ public:
 	~Field();
 	void Update() override;
 	void Draw() override;
+	int HitWallRight(int x, int y);
+	int HitWallLeft(int x, int y);
+	int HitWallDown(int x, int y);
 };
