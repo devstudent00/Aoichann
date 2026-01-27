@@ -1,8 +1,8 @@
 #include "PlayScene.h"
 #include "Field.h"
-#include "../ImGui/imgui.h"
 
-PlayScene::PlayScene() {
+PlayScene::PlayScene()
+{
 	new Field();
 }
 
@@ -21,7 +21,4 @@ void PlayScene::Draw()
 {
 	DrawString(0, 0, "PLAY SCENE", GetColor(255, 255, 255));
 	DrawString(100, 400, "Push [T]Key To Title", GetColor(255, 255, 255));
-
-	ImGui::Begin("Field Window");
-	ImGui::End();
 }

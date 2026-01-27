@@ -1,36 +1,46 @@
 #include "Field.h"
-#include <DxLib.h>
-#include <cassert>
+#include <assert.h>
 #include <vector>
 #include "Player.h"
-#define BLOCK_ID 1
-#define PLAYER_ID 9
+#include "csvReader.h"
 
-std::vector<std::vector<int>> map = {
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{1, 9, 0, 0, 1, 0, 0, 0, 0, 0},
-	{1, 1, 1, 1, 0, 1, 1, 0, 1, 1}
-};
-// std::vectorは、可変長配列
-// <int> は、int型の配列であることを示す
-// 配列の配列で、2次元配列 
+//std::vector<std::vector<int>> map = {
+//	{ 1,0,0,0,0,0,0,0,0,0,1 },
+//	{ 1,0,0,0,0,0,0,0,0,0,1 },
+//	{ 1,0,0,0,0,0,0,0,0,0,1 },
+//	{ 1,0,0,0,0,0,0,0,0,0,1 },
+//	{ 1,0,0,0,0,0,0,0,0,0,1 },
+//	{ 1,0,0,1,0,0,1,0,0,0,1 },
+//	{ 1,9,0,0,1,0,1,0,0,0,1 },
+//	{ 1,1,1,1,0,1,1,0,0,0,1 },
+//};
+std::vector<std::vector<int>> map;
 
-Field::Field() {
-	blockImage = LoadGraph("data/image/bgchar.png");
-	assert(blockImage > 0);
+// std::vectorは、可変長の配列
+// <int>は、intの配列
+
+Field::Field()
+{
+	hImage = LoadGraph("data/image/bgchar.png");
+	assert(hImage > 0);
+
+	//CSVから読んでmapを作る
+	CsvReader* csv = new CsvReader("data/stage00.csv");
+	int lines = csv->GetLines(); // CSVの行数
+	map.resize(lines);
+	for (int y = 0; y < lines; y++) { // １行ずつ読む
+		int cols = csv->GetColumns(y);
+		map[y].resize(cols);
+		for (int x = 0; x < cols; x++) {
+			map[y][x] = csv->GetInt(y, x);
+		}
+	}
+	delete csv;
 
 	for (int y = 0; y < map.size(); y++) {
 		for (int x = 0; x < map[y].size(); x++) {
-			if (map[y][x] == PLAYER_ID) {
-				new Player(64 * x, 64 * y);
+			if (map[y][x] == 9) {
+				new Player(x * 64, y * 64);
 			}
 		}
 	}
@@ -40,48 +50,62 @@ Field::~Field()
 {
 }
 
-void Field::Update() {
-	
+void Field::Update()
+{
 }
 
-void Field::Draw() {
+int Field::scroll = 0;
+
+void Field::Draw()
+{
 	for (int y = 0; y < map.size(); y++) {
 		for (int x = 0; x < map[y].size(); x++) {
-			if (map[y][x] == BLOCK_ID) {
-				DrawRectGraph(64 * x, 64 * y, 0, 64, 64, 64, blockImage, true);
+			if (map[y][x] == 1) {
+				DrawRectGraph(x * 64 - scroll, y * 64, 0, 64, 64, 64, hImage, TRUE);
 			}
 		}
 	}
-	
 }
 
-int Field::HitWallRight(int x, int y) {
-	int mapX = x / 64;
-	int mapY = y / 64;
-	if (map[mapY][mapX] == BLOCK_ID) {
-		int dX = (x % 64);
-		return dX+1;
+int Field::HitWallRight(int x, int y)
+{
+	if (IsInWall(x, y)) {
+		int dx = x % 64;
+		return dx+1;
 	}
 	return 0;
 }
 
 int Field::HitWallLeft(int x, int y)
 {
-	int mapX = x / 64;
-	int mapY = y / 64;
-	if (map[mapY][mapX] == BLOCK_ID) {
-		int dX = (x % 64);
-		return 64 - dX;
+	if (IsInWall(x, y)) {
+		int dx = x % 64;
+		return 64-dx;
 	}
 	return 0;
 }
 
-int Field::HitWallDown(int x, int y) {
-	int mapX = x / 64;
-	int mapY = y / 64;
-	if (map[mapY][mapX] == BLOCK_ID) {
-		int dY = (y % 64);
-		return dY + 1;
+int Field::HitWallDown(int x, int y)
+{
+	if (IsInWall(x, y)) {
+		int dy = y % 64;
+		return dy+1;
 	}
 	return 0;
+}
+
+bool Field::IsInWall(int x, int y)
+{
+	if (y < 0 || y >= map.size() * 64) {
+		return false;
+	}
+	int mapy = y / 64;
+	if (x < 0 || x >= map[mapy].size() * 64) {
+		return false;
+	}
+	int mapx = x / 64;
+	if (map[mapy][mapx] == 1) {
+		return true;
+	}
+	return false;
 }

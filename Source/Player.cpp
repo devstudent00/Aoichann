@@ -1,57 +1,89 @@
 #include "Player.h"
-#include <cassert>
+#include <assert.h>
 #include "Field.h"
+#include "../ImGui/imgui.h"
 
-Player::Player() {
-	
+Player::Player()
+{
 }
 
-Player::Player(int x, int y) {
+Player::Player(int x, int y)
+{
 	hImage = LoadGraph("data/image/aoi.png");
+	assert(hImage > 0);
 	position = VECTOR3(x, y, 0);
-	velocity = VECTOR3(2, 0, 0);
+	velocityY = 0.0f;
+	patX = 1;
+	patY = 0;
 }
 
 Player::~Player()
 {
 }
 
-void Player::Update() {
-	Field* field = FindGameObject<Field>();
-
-	if (Input::IsKeyPress(KEY_INPUT_D)) {
-		position.x += velocity.x;
-		int distance = field->HitWallRight(position.x + 44, position.y + 5);
-		int distance2 = field->HitWallRight(position.x + 44, position.y + 63);
-		position.x -= max(distance, distance2);
+void Player::Update()
+{
+	Field* f = FindGameObject<Field>();
+	if (CheckHitKey(KEY_INPUT_D)) { // 右に進む
+		position.x += 2.0f;
+		int d1 = f->HitWallRight(position.x + 44, position.y + 5);
+		int d2 = f->HitWallRight(position.x + 44, position.y + 63);
+		position.x -= max(d1,d2);
+		patCounter++;
+		patX = (patCounter / 4) % 4;
+	} else
+	if (CheckHitKey(KEY_INPUT_A)) {
+		position.x -= 2.0f;
+		int d1 = f->HitWallLeft(position.x + 16, position.y + 5);
+		int d2 = f->HitWallLeft(position.x + 16, position.y + 63);
+		position.x += max(d1, d2);
+		patCounter++;
+		patX = (patCounter / 4) % 4;
 	}
-	if (Input::IsKeyPress(KEY_INPUT_A)) {
-		position.x -= velocity.x;
-		int distance = field->HitWallLeft(position.x + 16, position.y + 5);
-		int distance2 = field->HitWallLeft(position.x + 16, position.y + 63);
-		position.x += max(distance, distance2);
+	else {
+		patX = 0;
+		patCounter = 3;
 	}
-
 	const float G = 3.0f/60.0f; // 重力
-	if (Input::IsKeyOnTrig(KEY_INPUT_SPACE)) {
-		velocity.y = -sqrtf(2*G*64*3);
+	const float H = 64.0f * 3.0f;
+	if (onGround) {
+		if (Input::IsKeyOnTrig(KEY_INPUT_SPACE)) {
+			velocityY = -sqrtf(2 * G * H);
+		}
 	}
+	position.y += velocityY;
+	velocityY += G; // 1フレームの重力
 
-	position.y += velocity.y;
-	velocity.y += G; // 1フレームの重力加速度
-	int downDistance = field->HitWallDown(position.x + 16, position.y + 63);
-	int downDistance2 = field->HitWallDown(position.x + 44, position.y + 63);
-	int distance = max(downDistance, downDistance2);
-	if (distance > 0) {
-		position.y -= distance;
-		velocity.y = 0.0f;
-	}
 	
+	int d2 = f->HitWallDown(position.x + 44, position.y + 64); // 足の１ドット下
+	int d1 = f->HitWallDown(position.x + 16, position.y + 64);
+	int d = max(d1, d2);
+	if (d > 0) {
+		position.y -= (d-1);
+		velocityY = 0;
+		onGround = true;
+	}
+	else {
+		onGround = false;
+	}
+	ImGui::Begin("PLAYER");
+	ImGui::Checkbox("onGround", &onGround);
+	ImGui::InputFloat("POSY", &position.y);
+	ImGui::End();
 
-
+	if (position.x - Field::scroll > 400) {
+		Field::scroll = position.x - 400;
+	}
+	else if (position.x - Field::scroll < 300) {
+		Field::scroll = position.x - 300;
+		if (Field::scroll < 0) {
+			Field::scroll = 0;
+		}
+	}
 }
 
-void Player::Draw() {
-	DrawRectGraph((int)position.x, (int)position.y, 64 * 0, 64 * 0, 64, 64, hImage, true);
-	DrawBox(position.x+16, position.y+5, position.x+44, position.y+64, 0xffffff, false);
+void Player::Draw()
+{
+	DrawRectGraph(position.x - Field::scroll, position.y, patX*64, patY*64, 64, 64, hImage, TRUE);
+	DrawBox(position.x+16 - Field::scroll, position.y+5, position.x + 44 - Field::scroll, position.y + 64, 0xffffff, FALSE);
 }
