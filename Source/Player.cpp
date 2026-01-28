@@ -15,6 +15,9 @@ Player::Player(int x, int y) : Character(x, y){
 	velocityY = 0.0f;
 	patX = 1;
 	patY = 0;
+
+	sqhere.center = VECTOR3(32, 32, 0);
+	sqhere.radius = 30.0f;
 }
 
 Player::~Player()
@@ -106,8 +109,8 @@ void Player::Update()
 	}
 }
 
-void Player::Draw()
-{
-	DrawRectGraph(position.x - Field::scroll, position.y, patX*64, patY*64, 64, 64, hImage, TRUE);
-	DrawBox(position.x+16 - Field::scroll, position.y+5, position.x + 44 - Field::scroll, position.y + 64, 0xffffff, FALSE);
+void Player::OnCollision(Character* other) {
+	DestroyMe();
 }
+
+//DrawBox(position.x + 16 - Field::scroll, position.y + 5, position.x + 44 - Field::scroll, position.y + 64, 0xffffff, FALSE);

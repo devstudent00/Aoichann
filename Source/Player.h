@@ -8,7 +8,7 @@ public:
 	Player(int x, int y);
 	~Player();
 	void Update() override;
-	void Draw() override;
+	void OnCollision(Character* other) override;
 private:
 	float velocityY;
 };
