@@ -1,7 +1,8 @@
 #pragma once
-#include "../Library/GameObject.h"
+//#include "../Library/GameObject.h"
+#include "Character.h"
 
-class Player : public GameObject {
+class Player : public Character {
 public:
 	Player();
 	Player(int x, int y);
@@ -9,10 +10,5 @@ public:
 	void Update() override;
 	void Draw() override;
 private:
-	int hImage;
-	VECTOR3 position;
 	float velocityY;
-	bool onGround;
-	int patX, patY; // ‰¡‚É‰½ŒÂ–Ú‚ÌŠGAc‚É‰½ŒÂ–Ú‚ÌŠG
-	int patCounter;
 };

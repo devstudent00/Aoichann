@@ -2,13 +2,13 @@
 #include <assert.h>
 #include "Field.h"
 #include "../ImGui/imgui.h"
+#include "Character.h"
 
 Player::Player()
 {
 }
 
-Player::Player(int x, int y)
-{
+Player::Player(int x, int y) : Character(x, y){
 	hImage = LoadGraph("data/image/aoi.png");
 	assert(hImage > 0);
 	position = VECTOR3(x, y, 0);
