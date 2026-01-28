@@ -3,6 +3,8 @@
 #include <vector>
 #include "Player.h"
 #include "csvReader.h"
+#include "Bird.h"
+#include "Tortoise.h"
 
 //std::vector<std::vector<int>> map = {
 //	{ 1,0,0,0,0,0,0,0,0,0,1 },
@@ -39,8 +41,14 @@ Field::Field()
 
 	for (int y = 0; y < map.size(); y++) {
 		for (int x = 0; x < map[y].size(); x++) {
-			if (map[y][x] == 9) {
+			if (map[y][x] == 9) { // プレイヤーの初期位置
 				new Player(x * 64, y * 64);
+			}
+			else if (map[y][x] == 10) { // 鳥の初期位置
+				new Bird(x * 64, y * 64);
+			}
+			else if (map[y][x] == 11) { // 亀の初期位置
+				new Tortoise(x * 64, y * 64);
 			}
 		}
 	}
