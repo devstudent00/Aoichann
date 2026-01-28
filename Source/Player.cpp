@@ -24,21 +24,24 @@ Player::~Player()
 void Player::Update()
 {
 	Field* f = FindGameObject<Field>();
+	bool walking = false;
 	if (CheckHitKey(KEY_INPUT_D)) { // ‰E‚Éi‚Þ
 		position.x += 2.0f;
 		int d1 = f->HitWallRight(position.x + 44, position.y + 5);
 		int d2 = f->HitWallRight(position.x + 44, position.y + 63);
 		position.x -= max(d1,d2);
-		patCounter++;
-		patX = (patCounter / 4) % 4;
+		walking = true;
+		//patCounter++;
+		//patX = (patCounter / 4) % 4;
 	} else
 	if (CheckHitKey(KEY_INPUT_A)) {
 		position.x -= 2.0f;
 		int d1 = f->HitWallLeft(position.x + 16, position.y + 5);
 		int d2 = f->HitWallLeft(position.x + 16, position.y + 63);
 		position.x += max(d1, d2);
-		patCounter++;
-		patX = (patCounter / 4) % 4;
+		walking = true;
+		//patCounter++;
+		//patX = (patCounter / 4) % 4;
 	}
 	else {
 		patX = 0;
@@ -78,6 +81,27 @@ void Player::Update()
 		Field::scroll = position.x - 300;
 		if (Field::scroll < 0) {
 			Field::scroll = 0;
+		}
+	}
+
+	if (onGround) {
+		patY = 0;
+		if (walking) {
+			patCounter++;
+			patX = (patCounter / 4) % 4;
+		}
+		else {
+			patX = 0;
+			patCounter = 3;
+		}
+	}
+	else {
+		patY = 2;
+		if (velocityY > 0) {
+			patX = 2;
+		}
+		else {
+			patX = 1;
 		}
 	}
 }
