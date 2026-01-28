@@ -22,7 +22,7 @@ Character::~Character()
 
 void Character::Draw()
 {
-	DrawRectGraph((int)position.x - Field::scroll, (int)position.y, 0 * patX, 64 * patY, 64, 64, hImage, TRUE);
+	DrawRectGraph((int)position.x - Field::scroll, (int)position.y, 64 * patX, 64 * patY, 64, 64, hImage, TRUE);
 	DrawCircle(position.x + sqhere.center.x - Field::scroll,
 		position.y + sqhere.center.y,
 		sqhere.radius, GetColor(255, 0, 0), FALSE);

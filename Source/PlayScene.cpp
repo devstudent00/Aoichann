@@ -1,9 +1,12 @@
 #include "PlayScene.h"
 #include "Field.h"
+#include "Player.h"
+#include "Start.h"
 
 PlayScene::PlayScene()
 {
 	new Field();
+	time = 0;
 }
 
 PlayScene::~PlayScene()
@@ -12,6 +15,15 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+
+	if (time < 1.0f) {
+		time += Time::DeltaTime();
+		if (time >= 1.0f) {
+			Player* player = FindGameObject<Player>();
+			player->PlayStart();
+			new Start();
+		}
+	}
 	if (CheckHitKey(KEY_INPUT_T)) {
 		SceneManager::ChangeScene("TITLE");
 	}

@@ -18,39 +18,65 @@ Player::Player(int x, int y) : Character(x, y){
 
 	sqhere.center = VECTOR3(32, 32, 0);
 	sqhere.radius = 30.0f;
+
+	state = State::S_READY;
 }
 
 Player::~Player()
 {
 }
 
-void Player::Update()
+void Player::Update() {
+	switch (state) {
+	case State::S_INPLAY:
+		UpdateInplay();
+		break;
+	case State::S_CRY:
+		UpdateCry();
+		break;
+	}
+}
+
+void Player::OnCollision(Character* other) {
+	state = State::S_CRY;
+}
+
+void Player::PlayStart()
 {
+	state = State::S_INPLAY;
+}
+
+void Player::UpdateReady()
+{
+}
+
+void Player::UpdateInplay() {
 	Field* f = FindGameObject<Field>();
 	bool walking = false;
 	if (CheckHitKey(KEY_INPUT_D)) { // 右に進む
 		position.x += 2.0f;
 		int d1 = f->HitWallRight(position.x + 44, position.y + 5);
 		int d2 = f->HitWallRight(position.x + 44, position.y + 63);
-		position.x -= max(d1,d2);
-		walking = true;
-		//patCounter++;
-		//patX = (patCounter / 4) % 4;
-	} else
-	if (CheckHitKey(KEY_INPUT_A)) {
-		position.x -= 2.0f;
-		int d1 = f->HitWallLeft(position.x + 16, position.y + 5);
-		int d2 = f->HitWallLeft(position.x + 16, position.y + 63);
-		position.x += max(d1, d2);
+		position.x -= max(d1, d2);
 		walking = true;
 		//patCounter++;
 		//patX = (patCounter / 4) % 4;
 	}
-	else {
-		patX = 0;
-		patCounter = 3;
-	}
-	const float G = 3.0f/60.0f; // 重力
+	else
+		if (CheckHitKey(KEY_INPUT_A)) {
+			position.x -= 2.0f;
+			int d1 = f->HitWallLeft(position.x + 16, position.y + 5);
+			int d2 = f->HitWallLeft(position.x + 16, position.y + 63);
+			position.x += max(d1, d2);
+			walking = true;
+			//patCounter++;
+			//patX = (patCounter / 4) % 4;
+		}
+		else {
+			patX = 0;
+			patCounter = 3;
+		}
+	const float G = 3.0f / 60.0f; // 重力
 	const float H = 64.0f * 3.0f;
 	if (onGround) {
 		if (Input::IsKeyOnTrig(KEY_INPUT_SPACE)) {
@@ -60,12 +86,12 @@ void Player::Update()
 	position.y += velocityY;
 	velocityY += G; // 1フレームの重力
 
-	
+
 	int d2 = f->HitWallDown(position.x + 44, position.y + 64); // 足の１ドット下
 	int d1 = f->HitWallDown(position.x + 16, position.y + 64);
 	int d = max(d1, d2);
 	if (d > 0) {
-		position.y -= (d-1);
+		position.y -= (d - 1);
 		velocityY = 0;
 		onGround = true;
 	}
@@ -109,8 +135,11 @@ void Player::Update()
 	}
 }
 
-void Player::OnCollision(Character* other) {
-	DestroyMe();
+void Player::UpdateCry()
+{
+	patX = 0;
+	patY = 4; // 泣いている絵にする
+	patCounter++;
 }
 
 //DrawBox(position.x + 16 - Field::scroll, position.y + 5, position.x + 44 - Field::scroll, position.y + 64, 0xffffff, FALSE);

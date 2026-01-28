@@ -162,6 +162,7 @@
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
+    <ClInclude Include="Source\Start.h" />
     <ClInclude Include="Source\TitleScene.h" />
     <ClInclude Include="Source\Tortoise.h" />
   </ItemGroup>
@@ -188,6 +189,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
+    <ClCompile Include="Source\Start.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
     <ClCompile Include="Source\Tortoise.cpp" />
   </ItemGroup>
