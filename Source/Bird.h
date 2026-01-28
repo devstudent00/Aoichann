@@ -1,17 +1,11 @@
 #pragma once
-#include "../Library/GameObject.h"
+//#include "../Library/GameObject.h"
+#include "Character.h"
 
-class Bird : public GameObject {
+class Bird : public Character {
 public:
 	//Bird();
 	Bird(int x, int y);
 	~Bird();
 	void Update() override;
-	void Draw() override;
-private:
-	int hImage;
-	VECTOR3 position;
-	bool onGround;
-	int patX, patY; // ‰¡‚É‰½ŒÂ–Ú‚ÌŠGAc‚É‰½ŒÂ–Ú‚ÌŠG
-	int patCounter;
 };

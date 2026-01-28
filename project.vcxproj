@@ -182,6 +182,7 @@
     <ClCompile Include="Library\Time.cpp" />
     <ClCompile Include="Source\Bird.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
+    <ClCompile Include="Source\Character.cpp" />
     <ClCompile Include="Source\csvReader.cpp" />
     <ClCompile Include="Source\Field.cpp" />
     <ClCompile Include="Source\Player.cpp" />
