@@ -62,6 +62,12 @@
     <ClCompile Include="Source\csvReader.cpp">
       <Filter>Library</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bird.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tortoise.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -137,6 +143,15 @@
     </ClInclude>
     <ClInclude Include="Source\csvReader.h">
       <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bird.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tortoise.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Character.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

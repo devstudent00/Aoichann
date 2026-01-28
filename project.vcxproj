@@ -153,7 +153,9 @@
     <ClInclude Include="Library\SceneBase.h" />
     <ClInclude Include="Library\SceneManager.h" />
     <ClInclude Include="Library\Time.h" />
+    <ClInclude Include="Source\Bird.h" />
     <ClInclude Include="Source\BootScene.h" />
+    <ClInclude Include="Source\Character.h" />
     <ClInclude Include="Source\csvReader.h" />
     <ClInclude Include="Source\Field.h" />
     <ClInclude Include="Source\Player.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
     <ClInclude Include="Source\TitleScene.h" />
+    <ClInclude Include="Source\Tortoise.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -177,6 +180,7 @@
     <ClCompile Include="Library\ObjectManager.cpp" />
     <ClCompile Include="Library\SceneManager.cpp" />
     <ClCompile Include="Library\Time.cpp" />
+    <ClCompile Include="Source\Bird.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\csvReader.cpp" />
     <ClCompile Include="Source\Field.cpp" />
@@ -184,6 +188,7 @@
     <ClCompile Include="Source\PlayScene.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
+    <ClCompile Include="Source\Tortoise.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
