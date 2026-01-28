@@ -12,4 +12,6 @@ private:
 	int hImage;
 	VECTOR3 position;
 	bool onGround;
+	int patX, patY; // ‰¡‚É‰½ŒÂ–Ú‚ÌŠGAc‚É‰½ŒÂ–Ú‚ÌŠG
+	int patCounter;
 };
