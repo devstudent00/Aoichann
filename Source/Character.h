@@ -19,6 +19,7 @@ public:
 protected:
 	int hImage;
 	VECTOR3 position;
+	VECTOR3 velocity;
 	bool onGround;
 	int patX, patY; // ‰¡‚É‰½ŒÂ–Ú‚ÌŠGAc‚É‰½ŒÂ–Ú‚ÌŠG
 	int patCounter;

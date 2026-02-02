@@ -9,4 +9,6 @@ public:
 	~Tortoise();
 	void Update() override;
 	void Draw() override;
+private:
+
 };
