@@ -71,6 +71,11 @@ void Field::Draw()
 			if (map[y][x] == 1) {
 				DrawRectGraph(x * 64 - scroll, y * 64, 0, 64, 64, 64, hImage, TRUE);
 			}
+			if (map[y][x] == 2) {
+				DrawRectGraph(x * 64 - scroll, y * 64 - (64*2),
+					0, 64*5, 
+					64*3, 64*3, hImage, TRUE);
+			}
 		}
 	}
 }
@@ -113,6 +118,21 @@ bool Field::IsInWall(int x, int y)
 	}
 	int mapx = x / 64;
 	if (map[mapy][mapx] == 1) {
+		return true;
+	}
+	return false;
+}
+
+bool Field::IsGoal(int x, int y) {
+	if (y < 0 || y >= map.size() * 64) {
+		return false;
+	}
+	int mapy = y / 64;
+	if (x < 0 || x >= map[mapy].size() * 64) {
+		return false;
+	}
+	int mapx = x / 64;
+	if (map[mapy][mapx] == 2) {
 		return true;
 	}
 	return false;

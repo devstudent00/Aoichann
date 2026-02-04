@@ -74,6 +74,9 @@
     <ClCompile Include="Source\Start.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Clear.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Source\Lerp.h">
       <Filter>MyLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Clear.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
 #include "Field.h"
 #include "../ImGui/imgui.h"
 #include "Character.h"
+#include "Clear.h"
 
 Player::Player()
 {
@@ -133,6 +134,14 @@ void Player::UpdateInplay() {
 			patX = 1;
 		}
 	}
+
+	// ƒS[ƒ‹‚É‚Â‚¢‚½‚ç
+	// new Clear
+	if (f->IsGoal(position.x + 44, position.y + 63)) {
+		new Clear();
+		DestroyMe();
+	}
+		
 }
 
 void Player::UpdateCry()

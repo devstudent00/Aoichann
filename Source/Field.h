@@ -14,6 +14,7 @@ public:
 	int HitWallLeft(int x, int y);
 	int HitWallDown(int x, int y);
 	bool IsInWall(int x, int y);
+	bool IsGoal(int x, int y);
 private:
 	int hImage;
 };

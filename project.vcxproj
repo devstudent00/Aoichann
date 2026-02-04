@@ -156,6 +156,7 @@
     <ClInclude Include="Source\Bird.h" />
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\Character.h" />
+    <ClInclude Include="Source\Clear.h" />
     <ClInclude Include="Source\csvReader.h" />
     <ClInclude Include="Source\Field.h" />
     <ClInclude Include="Source\Lerp.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Source\Bird.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\Character.cpp" />
+    <ClCompile Include="Source\Clear.cpp" />
     <ClCompile Include="Source\csvReader.cpp" />
     <ClCompile Include="Source\Field.cpp" />
     <ClCompile Include="Source\Player.cpp" />
