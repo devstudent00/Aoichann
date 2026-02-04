@@ -29,6 +29,9 @@ void TitleScene::Update()
 	if (Input::IsKeyOnTrig(KEY_INPUT_P)) {
 		SceneManager::ChangeScene("PLAY");
 	}
+	if (Input::IsKeyOnTrig(KEY_INPUT_S)) {
+		SceneManager::ChangeScene("STAGE");
+	}
 	if (Input::IsKeyOnTrig(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
 	}

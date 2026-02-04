@@ -4,12 +4,15 @@
 #include "Start.h"
 #include "Clear.h"
 #include "../ImGui/imgui.h"
+#include "Fade.h"
 
 PlayScene::PlayScene()
 {
+	Fade* fade = new Fade();
 	new Field();
 	state = State::S_READY;
 	time = 0;
+	fade->FadeIn(0.5f);
 }
 
 PlayScene::~PlayScene()
@@ -33,8 +36,18 @@ void PlayScene::Update()
 		if (time < 1.0f) {
 			time += Time::DeltaTime();
 			if (time >= 1.0f) {
-				SceneManager::ChangeScene("TITLE");
+				//SceneManager::ChangeScene("TITLE");
+				Fade* fade = FindGameObject<Fade>();
+				fade->FadeOut(3.0f);
+				state = State::S_FADEOUT;
 			}
+		}
+	}
+	if (state == State::S_FADEOUT) {
+		Fade* fade = FindGameObject<Fade>();
+		fade->Update();
+		if (fade->IsFinished()) {
+			SceneManager::ChangeScene("TITLE");
 		}
 	}
 

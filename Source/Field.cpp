@@ -1,3 +1,4 @@
+//#define _CRT_SECURE_NO_WARNINGS
 #include "Field.h"
 #include <assert.h>
 #include <vector>
@@ -5,6 +6,7 @@
 #include "csvReader.h"
 #include "Bird.h"
 #include "Tortoise.h"
+#include "DataHolder.h"
 
 //std::vector<std::vector<int>> map = {
 //	{ 1,0,0,0,0,0,0,0,0,0,1 },
@@ -27,7 +29,10 @@ Field::Field()
 	assert(hImage > 0);
 
 	//CSV‚©‚ç“Ç‚ñ‚Åmap‚ğì‚é
-	CsvReader* csv = new CsvReader("data/stage00.csv");
+	DataHolder* dh = FindGameObject<DataHolder>();
+	char filename[20];
+	sprintf_s(filename, "data/stage%02d.csv", dh->stageNumber);
+	CsvReader* csv = new CsvReader(filename);
 	int lines = csv->GetLines(); // CSV‚Ìs”
 	map.resize(lines);
 	for (int y = 0; y < lines; y++) { // ‚Ps‚¸‚Â“Ç‚Ş

@@ -77,6 +77,15 @@
     <ClCompile Include="Source\Clear.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Fade.cpp">
+      <Filter>MyLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StageSelectScene.cpp">
+      <Filter>StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataHolder.cpp">
+      <Filter>StageSelectScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -171,6 +180,15 @@
     <ClInclude Include="Source\Clear.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Fade.h">
+      <Filter>MyLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageSelectScene.h">
+      <Filter>StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataHolder.h">
+      <Filter>StageSelectScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -190,6 +208,9 @@
     </Filter>
     <Filter Include="MyLibrary">
       <UniqueIdentifier>{6ca444fc-b0e4-477b-869b-418053a3c31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageSelectScene">
+      <UniqueIdentifier>{d6597d0a-5741-4c5f-8907-d8b8e524edfc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

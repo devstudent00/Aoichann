@@ -1,7 +1,9 @@
 #include "BootScene.h"
+#include "DataHolder.h"
 
 BootScene::BootScene()
 {
+	new DataHolder();
 }
 
 BootScene::~BootScene()

@@ -22,7 +22,8 @@ private:
 		S_READY,
 		S_INPLAY,
 		S_CLEAR,
-		S_GAMEOVER
+		S_GAMEOVER,
+		S_FADEOUT
 	};
 	State state;
 };
