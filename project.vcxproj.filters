@@ -162,6 +162,9 @@
     <ClInclude Include="Source\Start.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Lerp.h">
+      <Filter>MyLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -178,6 +181,9 @@
     </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyLibrary">
+      <UniqueIdentifier>{6ca444fc-b0e4-477b-869b-418053a3c31a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

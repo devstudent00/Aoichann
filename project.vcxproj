@@ -158,6 +158,7 @@
     <ClInclude Include="Source\Character.h" />
     <ClInclude Include="Source\csvReader.h" />
     <ClInclude Include="Source\Field.h" />
+    <ClInclude Include="Source\Lerp.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />

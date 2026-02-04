@@ -1,5 +1,6 @@
 #include "Start.h"
 #include "Screen.h"
+#include "Lerp.h"
 #define LINEAR(startX, endX, maxTime, time) ((endX - startX) * (time / maxTime) + startX)
 
 Start::Start()
@@ -17,15 +18,10 @@ Start::~Start()
 {
 }
 
-float Lerp(float start, float end, float rate) {
-	return (end - start) * rate + start;
-}
-
 void Start::Update() {
 	time += Time::DeltaTime();
 	float rate = time / maxTime;
-	rate = rate * rate;
-	position.x = Lerp(startX, endX, rate);
+	position.x = Lerp<float>(startX, endX, rate, easeInOutSine);
 	if (time >= maxTime) {
 		DestroyMe();
 	}
