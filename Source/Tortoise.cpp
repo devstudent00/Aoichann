@@ -4,6 +4,10 @@
 #include "Screen.h"
 #include "../ImGui/imgui.h"
 
+namespace {
+	const float gravity = 1.0f;
+}
+
 Tortoise::Tortoise(int x, int y) : Character(x, y) {
 	hImage = LoadGraph("data/image/mob.png");
 	assert(hImage > 0);
@@ -19,6 +23,7 @@ Tortoise::~Tortoise()
 
 void Tortoise::Update() {
 	int screenX = position.x - Field::scroll;
+	int screenY = position.y;
 	Field* field = FindGameObject<Field>();
 
 	if (velocity.x <= -1.0f) {
@@ -40,6 +45,20 @@ void Tortoise::Update() {
 		if (maxRight > 0) {
 			velocity.x = -velocity.x;
 		}
+	}
+
+	int downLeft = field->HitWallDown(position.x, position.y + 64);
+	int downRight = field->HitWallDown(position.x + 64, position.y + 64);
+	int maxDown = max(downLeft, downRight);
+	if (maxDown > 0) {
+		onGround = true;
+	}
+	else {
+		onGround = false;
+	}
+
+	if (!onGround) {		
+		position.y += velocity.y;
 	}
 }
 
