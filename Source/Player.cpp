@@ -4,6 +4,7 @@
 #include "../ImGui/imgui.h"
 #include "Character.h"
 #include "Clear.h"
+#include "PlayScene.h"
 
 Player::Player()
 {
@@ -138,7 +139,7 @@ void Player::UpdateInplay() {
 	// ƒS[ƒ‹‚É‚Â‚¢‚½‚ç
 	// new Clear
 	if (f->IsGoal(position.x + 44, position.y + 63)) {
-		new Clear();
+		GetScene<PlayScene>()->OnClear(); 
 		DestroyMe();
 	}
 		
